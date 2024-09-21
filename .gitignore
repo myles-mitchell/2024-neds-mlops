@@ -1,6 +1,10 @@
-.Rproj.user
-.Rhistory
+*.env
+*.swp
+.DS_Store
+.env
 .RData
+.Rhistory
+.Rproj.user
 .Ruserdata
 slides_files/
 slides.html
