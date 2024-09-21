@@ -1,0 +1,41 @@
+# See https://jr-books.jmpr.io/training/the-config.yml-file.html
+# for documentation
+version: ~
+front: Introduction to MLOps
+admin:
+  asana_tag:
+  duration: 1.5
+  price_band:
+cores: 1.0
+deb_pkgs: ~
+python_pkgs: ~
+r_pkgs:
+  - tidyverse
+  - knitr
+  - rmarkdown
+  - quarto
+  - countdown
+  - reticulate
+language: r
+lintr: true
+notes:
+  advert: advert
+  render: rmarkdown::render
+  watermark:
+readme: ~
+rss: false
+related_courses:
+  pre_reqs: ~
+  suggested:
+    - ~
+scripts: ~
+seed: ~
+trainers:
+  primary:
+    - '@myles-mitchell'
+vignettes: false
+website:
+  materials:
+  name:
+  publish: false
+

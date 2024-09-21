@@ -1,0 +1,370 @@
+---
+title: "MLOps: Deploying Models into Production"
+author: "Myles Mitchell @ Jumping Rivers"
+format:
+  jrSlides-revealjs:
+    code-link: true
+    width: 1600
+    height: 900
+---
+
+## Welcome!
+
+:::{.columns}
+:::{.column width="50%"}
+* Slides: **URL**
+
+* GitHub: **URL**
+
+* Access the virtual environment:
+
+  * URL: **URL**
+
+  * Master password: **PASSWORD**
+:::
+:::{.column width="50%"}
+<center>
+**Check in using the QR code!**
+![](img/am-check-in.jpg){width="40%" fig-alt="QR code for morning session check-in"}
+</center>
+:::
+:::
+
+## Cloud Environment
+
+::: {style="text-align: center;"}
+
+**URL**
+
+Password: **PASSWORD**
+
+:::
+
+![](img/vm.png){fig-alt="Screenshot of log in page" fig-align="center"}
+
+# Before we start...
+
+## Who am I?
+
+:::: {.columns}
+
+::: {.column width="60%"}
+:::{.incremental}
+- Background in Astrophysics.
+
+- Data Scientist @ Jumping Rivers:
+
+  - Python & R support for various clients.
+
+  - Teach courses in Python, R, SQL, Machine Learning.
+
+- Hobbies include hiking and travelling.
+:::
+:::
+
+::: {.column width="40%"}
+![](img/myles.jpg)
+:::
+
+::::
+
+## Jumping Rivers
+
+:::{.columns}
+:::{.column width="58%"}
+[↗ jumpingrivers.com](https://www.jumpingrivers.com/) &nbsp; [𝕏 @jumping_uk](https://twitter.com/jumping_uk)
+
+- Machine learning
+- Dashboard development
+- R packages and APIs
+- Data pipelines
+- Code review
+
+<center>
+![](img/R_logo.png){width="23%"}  &nbsp; ![](img/posit.png){width="19%"} &nbsp; ![](img/stan.png){width="18%"}  &nbsp; ![](img/python.png){width="18%"}
+</center>
+:::
+:::{.column width="42%"}
+<center>
+![](img/jr-logo.png)
+</center>
+:::
+:::
+
+# Introduction to MLOps
+
+## Let's take a step back...
+
+The typical data science workflow:
+
+<center>
+![](img/ds-flow.png){fig-alt="Typical data science workflow. Starting with data importing and tidying, followed by a cycle of data transformation, data visualisation and modelling which repeats as the model is better understood. The results from this cycle are then communicated."}
+</center>
+
+:::{.incremental}
+* Data is imported and tidied.
+* Cycle of data transformation, data visualisation and modelling.
+* The cycle repeats as we understand the underlying model better.
+* The results are communicated to an external audience.
+:::
+
+## From Classical Stats to Machine Learning
+
+:::{.incremental}
+* The classical workflow prioritises understanding the *system* behind the data.
+* By contrast, Machine Learning prioritises *prediction*.
+* As data grows we reconsider and update our ML models to optimise predictive power.
+* A goal of MLOps is to streamline this cycle.
+:::
+
+## What is MLOps?
+
+MLOps: Machine Learning Operations
+
+<center>
+![](img/mlops-flow.png){fig-alt="MLOps workflow. Starting with data importing and tidying, followed by modelling and finishing with model versioning, deployment and monitoring. The cycle then repeats as more data is acquired."}
+</center>
+
+:::{.incremental}
+* Framework to continuously build, deploy and maintain ML models.
+* Encapsulates the "full stack" from data acquisition to model deployment.
+* Monitor models in production and detect "model drift".
+* Versioning of models and data.
+:::
+
+## MLOps frameworks
+
+* Amazon SageMaker
+* Microsoft Azure
+* Google Cloud Platform
+* Vetiver by Posit (free to use and integrates with Posit Connect)
+
+<center>
+![](img/sagemaker-logo.jpg){width="19%"}  &nbsp; ![](img/azure-logo.png){width="20%"} &nbsp; ![](img/gcp-logo.png){width="20%"}  &nbsp; ![](img/vetiver-logo.png){width="17%"}
+
+## Vetiver
+
+:::{.columns}
+:::{.column width="60%"}
+:::{.incremental}
+* Opensource tool maintained by Posit PBC.
+* Integrates with ML libraries in R and Python.
+* Fluent tooling to version, deploy and monitor a trained model.
+* Supports deploying models to localhost - great way to learn MLOps!
+:::
+:::
+:::{.column width="40%"}
+<center>
+![](img/posit-logo.png)
+![](img/vetiver-logo.png){width="60%"}
+</center>
+:::
+:::
+
+# Your first MLOps pipeline
+
+
+## Let's build an MLOps stack!
+
+:::{.incremental}
+* Data
+* Model
+* Training
+* Deployment
+* Monitoring
+* Repeat
+:::
+
+## Data acquisition
+
+
+
+## Data tidying
+
+
+
+## Data validation
+
+
+
+## Data versioning
+
+
+
+## Task 1: Preparing your data
+
+- Open **task1.txt**
+
+- Adjust the validation code with the correct column types
+
+- Run the code, passing in the **lemur.csv** data
+
+:::{.incremental}
+- Not an R user? The solution can be found in **task1_solutions.R**
+
+- You have just built a data validation pipeline!
+:::
+
+```{r}
+countdown::countdown(minutes = 10,
+                    color_border = "#490f3a",
+                    color_text = "#490f3a",
+                    color_running_text = "#fcfbfa",
+                    color_running_background = "#490f3a",
+                    color_finished_text = "#490f3a",
+                    color_finished_background = "#fcfbfa",
+                    top = 0,
+                    margin = "1.2em",
+                    font_size = "2em")
+```
+
+
+## Model selection
+
+
+
+## Model training
+
+
+
+## Model versioning
+
+
+
+## Task 2: Training your model
+
+- Open **task2.txt**
+
+- Run your solution to task 1 to prepare the data
+
+- Pass this into the `train()` function
+
+- Run `assess()` with the unseen test data to score the model
+
+- Save these metrics along with the model in an RDS file
+
+:::{.incremental}
+- Your pipeline now includes model training and scoring!
+:::
+
+```{r}
+countdown::countdown(minutes = 10,
+                    color_border = "#490f3a",
+                    color_text = "#490f3a",
+                    color_running_text = "#fcfbfa",
+                    color_running_background = "#490f3a",
+                    color_finished_text = "#490f3a",
+                    color_finished_background = "#fcfbfa",
+                    top = 0,
+                    margin = "1.2em",
+                    font_size = "2em")
+```
+
+## Deployment
+
+## Task 3: Deploying your model
+
+- Open **task3.txt**
+
+- Upload your RDS file to the cloud
+
+- Obtain your model endpoint URL
+
+- Make a prediction using a GET request
+
+:::{.incremental}
+- Your model is in production! But we're not finished yet...
+:::
+
+```{r}
+countdown::countdown(minutes = 10,
+                    color_border = "#490f3a",
+                    color_text = "#490f3a",
+                    color_running_text = "#fcfbfa",
+                    color_running_background = "#490f3a",
+                    color_finished_text = "#490f3a",
+                    color_finished_background = "#fcfbfa",
+                    top = 0,
+                    margin = "1.2em",
+                    font_size = "2em")
+```
+
+# Monitoring your model
+
+Deployment is just the beginning...
+
+## Why should I care?
+
+
+
+## Some case studies...
+
+
+
+## Monitoring
+
+
+
+## Model drift
+
+
+
+## Retraining
+
+
+
+## Task 4: Detecting model drift
+
+- Open **task4.txt**
+
+- The **lemurs_new.csv** contains the latest version of data
+
+- Run your predicti
+
+:::{.incremental}
+- Your model is in production! But we're not finished yet...
+:::
+
+```{r}
+countdown::countdown(minutes = 10,
+                    color_border = "#490f3a",
+                    color_text = "#490f3a",
+                    color_running_text = "#fcfbfa",
+                    color_running_background = "#490f3a",
+                    color_finished_text = "#490f3a",
+                    color_finished_background = "#fcfbfa",
+                    top = 0,
+                    margin = "1.2em",
+                    font_size = "2em")
+```
+
+# The future of MLOps
+
+## Real-time data
+
+
+
+# Thanks for listening!
+
+## Links & Resources
+
+:::{style="font-size: 45px;"}
+:::{.columns}
+:::{.column width="45%"}
+* Remember to provide feedback in the conference app!
+* Slides: **URL**
+* GitHub repo: **URL**
+* Jumping Rivers blog: **URL**
+* Jumping Rivers courses: **URL**
+:::
+:::{.column width="55%"}
+<center>
+![](img/sip-logo.png)
+</center>
+
+* Join us for Shiny In Production (9-10 Oct)
+  * [shiny-in-production.jumpingrivers.com](https://shiny-in-production.jumpingrivers.com/)
+  * Discount code: **JRSIPNICD**
+:::
+:::
+:::
