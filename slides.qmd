@@ -13,9 +13,9 @@ format:
 
 :::{.columns}
 :::{.column width="50%"}
-* Slides: **URL**
+* Slides: [bit.ly/2024-nicd-mlops](https://bit.ly/2024-nicd-mlops)
 
-* GitHub: **URL**
+* GitHub: [github.com/jumpingrivers/2024-nicd-mlops](https://github.com/jumpingrivers/2024-nicd-mlops)
 
 * Access the virtual environment:
 
@@ -353,10 +353,9 @@ countdown::countdown(minutes = 10,
 :::{.columns}
 :::{.column width="45%"}
 * Remember to provide feedback in the conference app!
-* Slides: **URL**
-* GitHub repo: **URL**
-* Jumping Rivers blog: **URL**
-* Jumping Rivers courses: **URL**
+* Slides: [bit.ly/2024-nicd-mlops](https://bit.ly/2024-nicd-mlops)
+* GitHub repo: [github.com/jumpingrivers/2024-nicd-mlops](https://github.com/jumpingrivers/2024-nicd-mlops)
+* Jumping Rivers (courses & blog): [jumpingrivers.com](https://www.jumpingrivers.com/)
 :::
 :::{.column width="55%"}
 <center>

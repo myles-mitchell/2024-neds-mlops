@@ -22,7 +22,7 @@ The workshop slot is 1 hour 30 minutes.
 
 * Closing discussion and Q&A: 15 min
 
-### Packages required
+### R dependencies
 
 - palmerpenguins
 - tidymodels
