@@ -31,7 +31,7 @@ format:
 :::
 :::
 
-## Cloud Environment
+## Virtual environment
 
 ::: {style="text-align: center;"}
 
@@ -138,7 +138,7 @@ MLOps: Machine Learning Operations
 * Amazon SageMaker
 * Microsoft Azure
 * Google Cloud Platform
-* Vetiver by Posit (free to use and integrates with Posit Connect)
+* Vetiver by Posit
 
 <center>
 ![](img/sagemaker-logo.jpg){width="19%"}  &nbsp; ![](img/azure-logo.png){width="20%"} &nbsp; ![](img/gcp-logo.png){width="20%"}  &nbsp; ![](img/vetiver-logo.png){width="17%"}
@@ -148,8 +148,8 @@ MLOps: Machine Learning Operations
 :::{.columns}
 :::{.column width="60%"}
 :::{.incremental}
-* Opensource tool maintained by Posit PBC.
-* Integrates with ML libraries in R and Python.
+* Opensource tool maintained by Posit PBC (formerly RStudio).
+* Integrates with popular ML libraries in R and Python.
 * Fluent tooling to version, deploy and monitor a trained model.
 * Supports deploying models to localhost - great way to learn MLOps!
 :::
@@ -169,36 +169,74 @@ MLOps: Machine Learning Operations
 
 :::{.incremental}
 * Data
-* Model
-* Training
+* Modelling
 * Deployment
 * Monitoring
 * Repeat
 :::
 
-## Data acquisition
+## Data best practices
 
+File formats
 
+:::{.incremental}
+* Consider moving from large CSV files to a more efficient format like Parquet.
+* Add a data validation check to prevent unexpected data formats entering the pipeline.
+:::
 
-## Data tidying
+## Data best practices
 
+Tidying & cleaning
 
+:::{.incremental}
+* Consider creating an R package to encourage proper documentation, testing and dependency management.
+* Optimise bottlenecks to improve efficiency.
+* Split into training and validation sets.
+:::
 
-## Data validation
+## Data best practices
 
+Versioning
 
+:::{.incremental}
+* Ensuring reproducibility is vital
+  * Example: why did your model have poor accuracy for ethic minority background individuals?
+* Include timestamps in your database queries.
+* Ensure your training set can be retrieved in the future.
+:::
 
-## Data versioning
+## Data best practices
 
+Take advantage of native MLOps tooling
 
+:::{.incremental}
+* SageMaker:
+  * Data wrangler and feature store
+  * Canvas for data pre-processing and visualisation
+:::
+
+## Demo
+
+* Using {tidyr} and the {palmerpenguins} dataset:
+
+```r
+library("palmerpenguins")
+
+# Remove missing values
+penguins_data = tidyr::drop_na(penguins, flipper_length_mm)
+```
+
+* Add a step for data splitting.
 
 ## Task 1: Preparing your data
 
 - Open **task1.txt**
 
-- Adjust the validation code with the correct column types
+- Give the attendees same task as code above (stored in demo1.txt) but with different dataset.
 
-- Run the code, passing in the **lemur.csv** data
+- Include a bonus question for R experts (like an extra step for feature selection).
+
+- Non-R experts should just try running the solution script and ask Myles questions.
 
 :::{.incremental}
 - Not an R user? The solution can be found in **task1_solutions.R**
@@ -220,17 +258,107 @@ countdown::countdown(minutes = 10,
 ```
 
 
-## Model selection
+## Modelling best practices
 
+Choosing the right model can be tough!
 
+:::{.incremental}
+* Use cheatsheets like [URL] to identify potential model families.
+* Include cross validation to optimise hyperparameters.
+* Try auto-ML tools like H2O.ai and SageMaker Autopilot.
+:::
 
-## Model training
+## Modelling best practices
 
+Versioning
 
+:::{.incremental}
+* Store scoring metrics and model parameters of experiments.
+* Any previously-deployed model should be retrievable, along with the data used to train it.
+:::
 
-## Model versioning
+## Demo
 
+* We'll consider a basic nearest neighbour model for this workshop.
 
+* Let's predict penguin `species`{.r} using `island`{.r}, `flipper_length_mm`{.r} and `body_mass_g`{.r}
+
+```r
+library("ggplot2")
+ggplot(penguins_data, aes(flipper_length_mm, body_mass_g)) +
+  geom_point(aes(colour = species, shape = island)) +
+  theme_minimal() +
+  xlab("Flipper Length(mm)") +
+  ylab("Body Mass(g)") +
+  viridis::scale_colour_viridis(discrete = TRUE)
+```
+
+## Demo
+
+* Let's set up the model recipe in {tidymodels}:
+
+```r
+model = recipe(species ~ island + flipper_length_mm + body_mass_g, 
+               data = penguins_data) |>
+  workflow(nearest_neighbor(mode = "classification")) |> 
+  fit(penguins_data)
+```
+
+## Demo
+
+:::{.incremental}
+*   Our model object can now be used to predict `species`{.r}:
+
+    ```r
+    model_pred = predict(model, penguins_data)
+    mean(model_pred$.pred_class == as.character(penguins_data$species))
+    ```
+
+*   Our model is 95% accuracy (on the data used to train it...)
+:::
+
+## Enter Vetiver!
+
+Collate all the necessary info to store, deploy and version our model:
+
+```r
+v_model = vetiver::vetiver_model(model, 
+                               model_name = "k-nn", 
+                               description = "blog-test")
+v_model
+```
+
+## Vetiver model
+
+`v_model`{.r} is a list with six elements:
+
+```r
+names(v_model)
+```
+
+```r
+v_model$description
+```
+
+## Vetiver model
+
+```r
+v_model$metadata
+```
+
+## Model storage
+
+:::{.incremental}
+*   Use {pins} to store R or Python objects for reuse later.
+
+*   Store pins using "boards" including Azure, Amazon S3 or even Google drive!
+
+*   Vetiver integrates nicely with Posit Connect:
+
+    ```r
+    vetiver::vetiver_pin_write(board = pins::board_connect(), v_model)
+    ```
+:::
 
 ## Task 2: Training your model
 
@@ -238,11 +366,9 @@ countdown::countdown(minutes = 10,
 
 - Run your solution to task 1 to prepare the data
 
-- Pass this into the `train()` function
+- Reproduce same modelling code as above but for different model and same dataset as in Task 1
 
-- Run `assess()` with the unseen test data to score the model
-
-- Save these metrics along with the model in an RDS file
+- Again, provide solution script for non-R people, and bonus question for experts.
 
 :::{.incremental}
 - Your pipeline now includes model training and scoring!
@@ -261,17 +387,78 @@ countdown::countdown(minutes = 10,
                     font_size = "2em")
 ```
 
-## Deployment
+## Deployment best practices
+
+:::{.incremental}
+* Try deploying locally to check that your model API works.
+
+* Use environment managers like {renv} to store model dependencies.
+
+* Use containers like Docker to bundle model source code with dependencies.
+:::
+
+## Deployment using Vetiver
+
+:::{.incremental}
+*   We deploy models as APIs which take input data and send back model predictions.
+
+*   We can use a {plumber} API to deploy a {vetiver} model.
+:::
+
+## Deploying locally
+
+:::
+*   {vetiver} and {plumber} support local deployment.
+
+    ```r
+    plumber::pr() |>
+      vetiver::vetiver_api(v_model) |>
+      plumber::pr_run()
+    ```
+
+*   Great for beginners to MLOps!
+:::
+
+## Deploying locally
+
+Check the deployment with:
+
+```r
+base_url = "127.0.0.1:7764/"
+url = paste0(base_url, "ping")
+r = httr::GET(url)
+metadata = httr::content(r, as = "text", encoding = "UTF-8")
+jsonlite::fromJSON(metadata)
+```
+
+## Model predictions
+
+Let's check that our API works!
+
+:::{.incremental}
+*   Endpoints `metadata` and `predict` allow programmatic queries:
+
+    ```r
+    url = paste0(base_url, "predict")
+    endpoint = vetiver::vetiver_endpoint(url)
+    pred_data = penguins_data |>
+      dplyr::select("island", "flipper_length_mm", "body_mass_g") |>
+      dplyr::slice_sample(n = 10)
+    predict(endpoint, pred_data)
+    ```
+:::
 
 ## Task 3: Deploying your model
 
 - Open **task3.txt**
 
-- Upload your RDS file to the cloud
+- Repeat local deployment and prediction for model created in Task 2.
 
-- Obtain your model endpoint URL
+- Provide solution for non-R people.
 
-- Make a prediction using a GET request
+- Make sure demo3.R contains code from demo above.
+
+- Also check that local deployment / prediction works in Posit Workbench.
 
 :::{.incremental}
 - Your model is in production! But we're not finished yet...
@@ -289,6 +476,72 @@ countdown::countdown(minutes = 10,
                     margin = "1.2em",
                     font_size = "2em")
 ```
+
+## Deploying to the cloud
+
+```r
+vetiver::vetiver_prepare_docker(
+  pins::board_connect(), 
+  "colin/k-nn", 
+  docker_args = list(port = 8080)
+)
+```
+
+This command:
+
+:::{.incremental}
+* Lists R depedencies with {renv}
+
+* Stores the {plumber} API code in `plumber.R`
+
+* Generates a **Dockerfile**
+:::
+
+## Docker files
+
+Our Dockerfile contains a series of commands to:
+
+:::{.incremental}
+* Set the R version and install the system libraries.
+
+* Install the required R packages.
+
+* Run the API in the deployed environment.
+:::
+
+## Running Docker
+
+:::{.incremental}
+*   Build a Docker container:
+
+    ```bash
+    docker build --tag my-first-model .
+    ```
+
+*   Inspect your stored Docker images:
+
+    ```bash
+    docker image list
+    ```
+
+*   Run the image:
+
+    ```r
+    docker run --rm --publish 8080:8080 my-first-model
+    ```
+
+*   These steps can be run in sequence using a **Makefile**.
+:::
+
+## Deploying to Connect
+
+* Vetiver integrates nicely with Posit Connect:
+
+```r
+vetiver::vetiver_deploy_rsconnect(board = pins::board_connect(), "colin/k-nn")
+```
+
+* We can also publish to Amazon SageMaker using `vetiver_deploy_sagemaker()`{.r}
 
 # Monitoring your model
 
