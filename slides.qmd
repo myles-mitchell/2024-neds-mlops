@@ -571,6 +571,18 @@ Our Dockerfile contains a series of commands to:
 *   We can also publish to Amazon SageMaker using `vetiver_deploy_sagemaker()`{.r}
 :::
 
+## Cost considerations for cloud MLOps
+
+:::{.incremental}
+* AWS offers 2 month free trial for Amazon SageMaker.
+
+* Azure Machine Learning is offered at no extra charge to existing Azure customers.
+
+* Costs can rise depending on computational resources consumed.
+
+* Model building and deployment use different environments.
+:::
+
 # Monitoring your model
 
 Deployment is just the beginning...
@@ -580,7 +592,9 @@ Deployment is just the beginning...
 :::{.incremental}
 * Our model may perform well with *current* data.
 
-* But data evolves...
+  * But data evolves...
+
+* As data and user base grows, your model must scale.
 :::
 
 ## Some case studies...
@@ -698,10 +712,11 @@ Real-time data
 :::{style="font-size: 45px;"}
 :::{.columns}
 :::{.column width="45%"}
-* Remember to provide feedback in the conference app!
+* Remember to provide feedback!
 * Slides: [bit.ly/2024-nicd-mlops](https://bit.ly/2024-nicd-mlops)
 * GitHub repo: [github.com/jumpingrivers/2024-nicd-mlops](https://github.com/jumpingrivers/2024-nicd-mlops)
 * Jumping Rivers (courses & blog): [jumpingrivers.com](https://www.jumpingrivers.com/)
+* MLOps platforms compared: [https://valohai.com/mlops-platforms-compared/](valohai.com/mlops-platforms-compared/)
 :::
 :::{.column width="55%"}
 <center>
