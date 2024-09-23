@@ -24,10 +24,15 @@ The workshop slot is 1 hour 30 minutes.
 
 ### R dependencies
 
+- ggplot2
+- httr
+- jsonlite
+- kknn
 - palmerpenguins
-- tidymodels
-- vetiver
 - pins
 - plumber
+- tidymodels
+- tidyr
+- vetiver
 
 The `exercises` folder and its contents should be uploaded for each attendee.
