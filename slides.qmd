@@ -217,16 +217,16 @@ Take advantage of native MLOps tooling
 
 ## Demo
 
-* Using {tidyr} and the {palmerpenguins} dataset:
+*   Using {tidyr} and the {palmerpenguins} dataset:
 
-```r
-library("palmerpenguins")
+    ```r
+    library("palmerpenguins")
 
-# Remove missing values
-penguins_data = tidyr::drop_na(penguins, flipper_length_mm)
-```
+    # Remove missing values
+    penguins_data = tidyr::drop_na(penguins, flipper_length_mm)
+    ```
 
-* Add a step for data splitting.
+*   Add a step for data splitting.
 
 ## Task 1: Preparing your data
 
@@ -273,7 +273,7 @@ Choosing the right model can be tough!
 Versioning
 
 :::{.incremental}
-* Store scoring metrics and model parameters of experiments.
+* Store scoring metrics and model parameters from each experiment.
 * Any previously-deployed model should be retrievable, along with the data used to train it.
 :::
 
@@ -298,53 +298,71 @@ ggplot(penguins_data, aes(flipper_length_mm, body_mass_g)) +
 * Let's set up the model recipe in {tidymodels}:
 
 ```r
-model = recipe(species ~ island + flipper_length_mm + body_mass_g, 
-               data = penguins_data) |>
+model = recipe(
+  species ~ island + flipper_length_mm + body_mass_g, 
+  data = penguins_data
+) |>
   workflow(nearest_neighbor(mode = "classification")) |> 
   fit(penguins_data)
 ```
 
 ## Demo
 
+Our model object can now be used to predict `species`{.r}:
+
+```r
+model_pred = predict(model, penguins_data)
+mean(
+  model_pred$.pred_class == as.character(
+    penguins_data$species
+  )
+)
+```
+
 :::{.incremental}
-*   Our model object can now be used to predict `species`{.r}:
-
-    ```r
-    model_pred = predict(model, penguins_data)
-    mean(model_pred$.pred_class == as.character(penguins_data$species))
-    ```
-
-*   Our model is 95% accuracy (on the data used to train it...)
+* Our model is 95% accuracy (on the data used to train it...)
 :::
 
 ## Enter Vetiver!
 
-Collate all the necessary info to store, deploy and version our model:
+:::{.incremental}
+*   Use a *Vetiver model* object to collate all of the necessary info needed to store, deploy and version our model:
 
-```r
-v_model = vetiver::vetiver_model(model, 
-                               model_name = "k-nn", 
-                               description = "blog-test")
-v_model
-```
-
-## Vetiver model
-
-`v_model`{.r} is a list with six elements:
-
-```r
-names(v_model)
-```
-
-```r
-v_model$description
-```
+    ```r
+    v_model = vetiver::vetiver_model(model, 
+                                   model_name = "k-nn", 
+                                   description = "blog-test")
+    v_model
+    ```
+:::
 
 ## Vetiver model
 
-```r
-v_model$metadata
-```
+`v_model`{.r} is a list with six elements
+
+:::{.incremental}
+*   View the contents:
+
+    ```r
+    names(v_model)
+    ```
+
+*   View the model description:
+
+    ```r
+    v_model$description
+    ```
+:::
+
+## Vetiver model
+
+:::{.incremental}
+*   View the metadata:
+
+    ```r
+    v_model$metadata
+    ```
+:::
 
 ## Model storage
 
@@ -360,7 +378,7 @@ v_model$metadata
     ```
 :::
 
-## Task 2: Training your model
+## Task 2: Creating a Vetiver model
 
 - Open **task2.txt**
 
@@ -390,7 +408,7 @@ countdown::countdown(minutes = 10,
 ## Deployment best practices
 
 :::{.incremental}
-* Try deploying locally to check that your model API works.
+* Try deploying locally to check that your model API works as expected.
 
 * Use environment managers like {renv} to store model dependencies.
 
@@ -407,7 +425,7 @@ countdown::countdown(minutes = 10,
 
 ## Deploying locally
 
-:::
+:::{.incremental}
 *   {vetiver} and {plumber} support local deployment.
 
     ```r
@@ -442,10 +460,14 @@ Let's check that our API works!
     url = paste0(base_url, "predict")
     endpoint = vetiver::vetiver_endpoint(url)
     pred_data = penguins_data |>
-      dplyr::select("island", "flipper_length_mm", "body_mass_g") |>
+      dplyr::select(
+        "island", "flipper_length_mm", "body_mass_g"
+      ) |>
       dplyr::slice_sample(n = 10)
     predict(endpoint, pred_data)
     ```
+
+*   Our model gives us predictions!
 :::
 
 ## Task 3: Deploying your model
@@ -479,22 +501,24 @@ countdown::countdown(minutes = 10,
 
 ## Deploying to the cloud
 
-```r
-vetiver::vetiver_prepare_docker(
-  pins::board_connect(), 
-  "colin/k-nn", 
-  docker_args = list(port = 8080)
-)
-```
-
-This command:
-
 :::{.incremental}
-* Lists R depedencies with {renv}
+*   Vetiver also streamlines deployment to the production environment:
 
-* Stores the {plumber} API code in `plumber.R`
+    ```r
+    vetiver::vetiver_prepare_docker(
+      pins::board_connect(), 
+      "colin/k-nn", 
+      docker_args = list(port = 8080)
+    )
+    ```
 
-* Generates a **Dockerfile**
+*   This command:
+
+    * Lists R depedencies with {renv}
+
+    * Stores the {plumber} API code in `plumber.R`
+
+    * Generates a **Dockerfile**
 :::
 
 ## Docker files
@@ -535,13 +559,17 @@ Our Dockerfile contains a series of commands to:
 
 ## Deploying to Connect
 
-* Vetiver integrates nicely with Posit Connect:
+:::{.incremental}
+*   Vetiver integrates nicely with Posit Connect:
 
-```r
-vetiver::vetiver_deploy_rsconnect(board = pins::board_connect(), "colin/k-nn")
-```
+    ```r
+    vetiver::vetiver_deploy_rsconnect(
+      board = pins::board_connect(), "colin/k-nn"
+    )
+    ```
 
-* We can also publish to Amazon SageMaker using `vetiver_deploy_sagemaker()`{.r}
+*   We can also publish to Amazon SageMaker using `vetiver_deploy_sagemaker()`{.r}
+:::
 
 # Monitoring your model
 
@@ -549,25 +577,74 @@ Deployment is just the beginning...
 
 ## Why should I care?
 
+:::{.incremental}
+* Our model may perform well with *current* data.
 
+* But data evolves...
+:::
 
 ## Some case studies...
 
 
 
-## Monitoring
+## Data evolution
 
+:::{.incremental}
+* The underlying distibutions of data can and will change:
 
+  * The balance of penguin species will change with global warming.
+
+* The intrinsic relationship between the target variable and predictors can change:
+
+  * Gentoo penguin body mass could change over time due to availability of food.
+:::
 
 ## Model drift
 
+:::{.incremental}
+* As the data changes, our model predictions start to *drift*.
 
+* Identifying model drift is vital to any MLOps workflow.
 
-## Retraining
+* Retrain the model with the latest data and redeploy.
+:::
 
+## Task 4 - Model monitoring
 
+:::{.incremental}
+* How might we identify model drift?
 
-## Task 4: Detecting model drift
+* **Discuss**
+:::
+
+```{r}
+countdown::countdown(minutes = 5,
+                    color_border = "#490f3a",
+                    color_text = "#490f3a",
+                    color_running_text = "#fcfbfa",
+                    color_running_background = "#490f3a",
+                    color_finished_text = "#490f3a",
+                    color_finished_background = "#fcfbfa",
+                    top = 0,
+                    margin = "1.2em",
+                    font_size = "2em")
+```
+
+## Model monitoring
+
+Some best practices:
+
+:::{.incremental}
+* As users query the model API, store the model predictions.
+
+* A drift in the distribution of the model predictions is a classic sign of drift.
+
+* As our data grows, run checks of the underlying distributions.
+
+* When drift is detected, retrain with the latest data and redeploy.
+:::
+
+## Task 5: Detecting model drift
 
 - Open **task4.txt**
 
@@ -592,11 +669,27 @@ countdown::countdown(minutes = 10,
                     font_size = "2em")
 ```
 
-# The future of MLOps
+# MLOps: Advantages and current trends
 
-## Real-time data
+## Advantages of MLOps
 
+:::{.incremental}
+* Retraining and redeployment can happen at the click of a button.
 
+* Encourages good practices like model versioning and packaging of source code.
+
+* Reduces human error.
+:::
+
+## Current trends
+
+Real-time data
+
+:::{.incremental}
+* Sensor data can provide near-instant, real time measurements.
+
+* Digital twins already used in manufacturing, agriculture, and more!
+:::
 
 # Thanks for listening!
 
