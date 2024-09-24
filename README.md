@@ -24,6 +24,7 @@ The workshop slot is 1 hour 30 minutes.
 
 ### R dependencies
 
+- dplyr
 - ggplot2
 - httr
 - jsonlite
@@ -31,9 +32,13 @@ The workshop slot is 1 hour 30 minutes.
 - palmerpenguins
 - pins
 - plumber
+- readr
+- rsample
 - tidymodels
 - tidyr
 - vetiver
+- viridis
+- yardstick
 
 ### Datasets
 
