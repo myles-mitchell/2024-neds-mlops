@@ -1,7 +1,7 @@
 Type: Package
 Package: jrNicdVetiver
 Title: Jumping Rivers: Deploying Models into Production
-Version: 0.1.1
+Version: 0.1.2
 Authors@R:
     person("Jumping", "Rivers", , "info@jumpingrivers.com", role = c("aut", "cre"))
 Description: Dependencies for the MLOps Workshop at the NICD Data
@@ -9,7 +9,7 @@ Description: Dependencies for the MLOps Workshop at the NICD Data
 License: GPL-3
 URL: https://www.jumpingrivers.com/
 Depends:
-    R (>= 4.4.0)
+    R (>= 3.5.0)
 Imports:
     ggplot2,
     httr,

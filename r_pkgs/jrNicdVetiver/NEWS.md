@@ -1,3 +1,6 @@
+# jrNicdVetiver 0.1.2 _2024-09-24_
+  * fix: Relax R version requirement
+
 # jrNicdVetiver 0.1.1 _2024-09-24_
   * fix: Tidy description
 
