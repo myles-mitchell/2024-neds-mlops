@@ -1,3 +1,6 @@
+# jrNicdVetiver 0.1.3 _2024-09-24_
+  * feat: Update R package dependencies
+
 # jrNicdVetiver 0.1.2 _2024-09-24_
   * fix: Relax R version requirement
 
