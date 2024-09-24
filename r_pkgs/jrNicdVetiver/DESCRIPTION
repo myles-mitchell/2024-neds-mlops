@@ -1,7 +1,7 @@
 Type: Package
 Package: jrNicdVetiver
 Title: Jumping Rivers: Deploying Models into Production
-Version: 0.1.0
+Version: 0.1.1
 Authors@R:
     person("Jumping", "Rivers", , "info@jumpingrivers.com", role = c("aut", "cre"))
 Description: Dependencies for the MLOps Workshop at the NICD Data
