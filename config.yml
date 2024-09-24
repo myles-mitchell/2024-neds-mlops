@@ -1,7 +1,7 @@
 # See https://jr-books.jmpr.io/training/the-config.yml-file.html
 # for documentation
 version: ~
-front: Introduction to MLOps
+front: Deploying Models into Production
 admin:
   asana_tag:
   duration: 1.5
@@ -10,12 +10,16 @@ cores: 1.0
 deb_pkgs: ~
 python_pkgs: ~
 r_pkgs:
-  - tidyverse
-  - knitr
-  - rmarkdown
-  - quarto
-  - countdown
-  - reticulate
+  - ggplot2
+  - httr
+  - jsonlite
+  - kknn
+  - palmerpenguins
+  - pins
+  - plumber
+  - tidymodels
+  - tidyr
+  - vetiver
 language: r
 lintr: true
 notes:
