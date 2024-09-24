@@ -4,8 +4,8 @@ Title: Jumping Rivers: Deploying Models into Production
 Version: 0.1.0
 Authors@R:
     person("Jumping", "Rivers", , "info@jumpingrivers.com", role = c("aut", "cre"))
-Description: Dependencies for the MLOps Workshop at the NICD Data Innovation
-    Showcase on 26 September 2024.
+Description: Dependencies for the MLOps Workshop at the NICD Data
+    Innovation Showcase on 26 September 2024.
 License: GPL-3
 URL: https://www.jumpingrivers.com/
 Depends:
