@@ -1,10 +1,9 @@
-# Common components, such as stages, pages, default image, mkdocs, pm-check
 include:
-  - project: jumpingrivers/products/prj/common
-    ref: $JR_CI_TEMPLATES_DEFAULT_BRANCH_COMMON
-    file: /.ci/main.yml
-    rules:
-      - if: $CI_PROJECT_PATH != "jumpingrivers/products/prj/common"
-  - local: /.ci/main.yml
-    rules:
-      - if: $CI_PROJECT_PATH == "jumpingrivers/products/prj/common"
+  - project: 'jumpingrivers/training/materials'
+    ref: main
+    file: 'ci/template-gitlab-ci.yml'
+
+variables:
+  NOTES:   "FALSE" # Should we check notes?
+  SLIDES:  "FALSE" # Should we check slides?
+  RELEASE: "TRUE" # Should we tag & run make final?

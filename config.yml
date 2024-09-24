@@ -1,11 +1,13 @@
 # See https://jr-books.jmpr.io/training/the-config.yml-file.html
 # for documentation
-version: ~
-front: Deploying Models into Production
+version: 0.1.0
+front: Deploying Models into \\ Production
+project_name: 2024-nicd-mlops
 admin:
-  asana_tag:
+  asana_tag: 'Workshop: MLOps'
   duration: 1.5
-  price_band:
+  price_band: Z
+check_pkgtitle: true
 cores: 1.0
 deb_pkgs: ~
 python_pkgs: ~
@@ -20,26 +22,28 @@ r_pkgs:
   - tidymodels
   - tidyr
   - vetiver
+google_chrome: false
 language: r
 lintr: true
 notes:
   advert: advert
+  courses: course-dependencies
   render: rmarkdown::render
-  watermark:
+  watermark: ~
 readme: ~
 rss: false
 related_courses:
-  pre_reqs: ~
+  pre_reqs:
+    - ~
   suggested:
     - ~
 scripts: ~
 seed: ~
 trainers:
-  primary:
-    - '@myles-mitchell'
+  primary: '@myles-mitchell'
 vignettes: false
 website:
-  materials:
-  name:
+  materials: ~
+  name: ~
   publish: false
 
