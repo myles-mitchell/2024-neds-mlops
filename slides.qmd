@@ -19,7 +19,7 @@ format:
 
 * Access the virtual environment:
 
-  * URL: **URL**
+  * URL: [https://mlops-intro.jumpingrivers.training/welcome/](https://mlops-intro.jumpingrivers.training/welcome/)
 
   * Master password: **PASSWORD**
 :::
@@ -35,7 +35,7 @@ format:
 
 ::: {style="text-align: center;"}
 
-**URL**
+**https://mlops-intro.jumpingrivers.training/welcome/**
 
 Password: **PASSWORD**
 
@@ -92,6 +92,45 @@ Password: **PASSWORD**
 :::
 :::
 
+## How will this workshop run?
+
+:::{.incremental}
+* Presentation slides ([bit.ly/2024-nicd-mlops](https://bit.ly/2024-nicd-mlops)).
+
+* R coding demos in virtual environment.
+
+* Exercises will apply the demo code to a different dataset and model.
+
+* Not an R user?
+  * The complete scripts and solutions are available.
+  * Not all exercises will be code-based.
+:::
+
+## What will be covered?
+
+:::{.incremental}
+* Introduction to MLOps
+
+* Building a basic MLOps workflow
+
+* Best practices at every step of the chain
+
+* All tools are opensource and free to install!
+
+* Want to contribute?
+  * Raise your hand for questions and comments.
+:::
+
+## What you get from me
+
+:::{.incremental}
+* GitHub repo ([github.com/jumpingrivers/2024-nicd-mlops](https://github.com/jumpingrivers/2024-nicd-mlops)):
+  * HTML slides (also available at [bit.ly/2024-nicd-mlops](https://bit.ly/2024-nicd-mlops)).
+  * Demo and exercise scripts.
+
+* Useful links to other resources.
+:::
+
 # Introduction to MLOps
 
 ## Let's take a step back...
@@ -139,6 +178,7 @@ MLOps: Machine Learning Operations
 * Microsoft Azure
 * Google Cloud Platform
 * Vetiver by Posit
+* And the list goes on...
 
 <center>
 ![](img/sagemaker-logo.jpg){width="19%"}  &nbsp; ![](img/azure-logo.png){width="20%"} &nbsp; ![](img/gcp-logo.png){width="20%"}  &nbsp; ![](img/vetiver-logo.png){width="17%"}
@@ -164,7 +204,6 @@ MLOps: Machine Learning Operations
 
 # Your first MLOps pipeline
 
-
 ## Let's build an MLOps stack!
 
 :::{.incremental}
@@ -177,15 +216,26 @@ MLOps: Machine Learning Operations
 
 ## Data best practices
 
-File formats
+:::{.columns}
+:::{.column width="60%"}
+Loading and importing
 
 :::{.incremental}
 * Consider moving from large CSV files to a more efficient format like Parquet.
 * Add a data validation check to prevent unexpected data formats entering the pipeline.
+* Consider tools like {arrow} and Apache Spark for fast processing.
+:::
+:::
+
+:::{.column width="40%"}
+Parquet, arrow and Spark images here.
+:::
 :::
 
 ## Data best practices
 
+:::{.columns}
+:::{.column width=60%}
 Tidying & cleaning
 
 :::{.incremental}
@@ -193,9 +243,17 @@ Tidying & cleaning
 * Optimise bottlenecks to improve efficiency.
 * Split into training and validation sets.
 :::
+:::
+
+:::{.column width="40%"}
+Tidyverse hex stickers here.
+:::
+:::
 
 ## Data best practices
 
+:::{.columns}
+:::{.column width="60%"}
 Versioning
 
 :::{.incremental}
@@ -204,29 +262,63 @@ Versioning
 * Include timestamps in your database queries.
 * Ensure your training set can be retrieved in the future.
 :::
+:::
+
+:::{.column width="40%"}
+Git and {pins} here.
+:::
+:::
 
 ## Data best practices
 
+:::{.columns}
+:::{.column width="60%"}
 Take advantage of native MLOps tooling
 
 :::{.incremental}
+* Your preferred MLOps platform probably has built-in tools for data wrangling!
 * SageMaker:
   * Data wrangler and feature store
   * Canvas for data pre-processing and visualisation
 :::
+:::
+
+:::{.column width="40%"}
+Canvas and other logos.
+:::
+:::
 
 ## Demo
 
-*   Using {tidyr} and the {palmerpenguins} dataset:
+* Palmer Penguins dataset:
+
+```r
+library("ggplot2")
+library("palmerpenguins")
+
+ggplot(penguins, aes(flipper_length_mm, body_mass_g)) +
+  geom_point(aes(colour = species, shape = island)) +
+  theme_minimal() +
+  xlab("Flipper Length(mm)") +
+  ylab("Body Mass(g)") +
+  viridis::scale_colour_viridis(discrete = TRUE)
+```
+
+## Demo
+
+*   Let's predict species using flipper length, body mass and island!
+
+*   Using {tidyr} and {rsample}:
 
     ```r
-    library("palmerpenguins")
-
-    # Remove missing values
-    penguins_data = tidyr::drop_na(penguins, flipper_length_mm)
+    # Drop missing data
+    penguins_data = tidyr::drop_na(penguins)
+    
+    # Split into train and test sets
+    penguins_split = rsample::initial_split(penguins_data, prop = 0.8)
+    train_data = training(penguins_split)
+    test_data = testing(penguins_split)
     ```
-
-*   Add a step for data splitting.
 
 ## Task 1: Preparing your data
 
@@ -260,6 +352,8 @@ countdown::countdown(minutes = 10,
 
 ## Modelling best practices
 
+:::{.columns}
+:::{.column width="60%"}
 Choosing the right model can be tough!
 
 :::{.incremental}
@@ -267,31 +361,29 @@ Choosing the right model can be tough!
 * Include cross validation to optimise hyperparameters.
 * Try auto-ML tools like H2O.ai and SageMaker Autopilot.
 :::
+:::
+
+:::{.column width="40%"}
+H2O.ai and Autopilot logos here
+:::
+:::
 
 ## Modelling best practices
 
+:::{.columns}
+:::{.column width="60%"}
 Versioning
 
 :::{.incremental}
 * Store scoring metrics and model parameters from each experiment.
 * Any previously-deployed model should be retrievable, along with the data used to train it.
 :::
+:::
 
-## Demo
-
-* We'll consider a basic nearest neighbour model for this workshop.
-
-* Let's predict penguin `species`{.r} using `island`{.r}, `flipper_length_mm`{.r} and `body_mass_g`{.r}
-
-```r
-library("ggplot2")
-ggplot(penguins_data, aes(flipper_length_mm, body_mass_g)) +
-  geom_point(aes(colour = species, shape = island)) +
-  theme_minimal() +
-  xlab("Flipper Length(mm)") +
-  ylab("Body Mass(g)") +
-  viridis::scale_colour_viridis(discrete = TRUE)
-```
+:::{.column width="40%"}
+Git and {pins} logos here
+:::
+:::
 
 ## Demo
 
@@ -299,11 +391,11 @@ ggplot(penguins_data, aes(flipper_length_mm, body_mass_g)) +
 
 ```r
 model = recipe(
-  species ~ island + flipper_length_mm + body_mass_g, 
-  data = penguins_data
+  species ~ island + flipper_length_mm + body_mass_g,
+  data = train_data
 ) |>
-  workflow(nearest_neighbor(mode = "classification")) |> 
-  fit(penguins_data)
+  workflow(nearest_neighbor(mode = "classification")) |>
+  fit(train_data)
 ```
 
 ## Demo
@@ -311,27 +403,26 @@ model = recipe(
 Our model object can now be used to predict `species`{.r}:
 
 ```r
-model_pred = predict(model, penguins_data)
+model_pred = predict(model, test_data)
+
+# Accuracy for unseen test data
 mean(
   model_pred$.pred_class == as.character(
-    penguins_data$species
+    test_data$species
   )
 )
 ```
 
-:::{.incremental}
-* Our model is 95% accuracy (on the data used to train it...)
-:::
-
 ## Enter Vetiver!
 
 :::{.incremental}
-*   Use a *Vetiver model* object to collate all of the necessary info needed to store, deploy and version our model:
+*   Use a *Vetiver model* object to collate all of the info needed to store,
+    deploy and version our model:
 
     ```r
-    v_model = vetiver::vetiver_model(model, 
-                                   model_name = "k-nn", 
-                                   description = "blog-test")
+    v_model = vetiver::vetiver_model(model,
+                                     model_name = "k-nn",
+                                     description = "penguin-species")
     v_model
     ```
 :::
@@ -407,6 +498,8 @@ countdown::countdown(minutes = 10,
 
 ## Deployment best practices
 
+:::{.columns}
+:::{.column width="60%"}
 :::{.incremental}
 * Try deploying locally to check that your model API works as expected.
 
@@ -414,13 +507,27 @@ countdown::countdown(minutes = 10,
 
 * Use containers like Docker to bundle model source code with dependencies.
 :::
+:::
+
+:::{.column width="40%"}
+{renv} and Docker logos here
+:::
+:::
 
 ## Deployment using Vetiver
 
+:::{.columns}
+:::{.column width="60%"}
 :::{.incremental}
 *   We deploy models as APIs which take input data and send back model predictions.
 
 *   We can use a {plumber} API to deploy a {vetiver} model.
+:::
+:::
+
+:::{.column width="40%"}
+{plumber} logo here
+:::
 :::
 
 ## Deploying locally
@@ -442,7 +549,7 @@ countdown::countdown(minutes = 10,
 Check the deployment with:
 
 ```r
-base_url = "127.0.0.1:7764/"
+base_url = "127.0.0.1:8080/"  # Double-check 4-digit port number
 url = paste0(base_url, "ping")
 r = httr::GET(url)
 metadata = httr::content(r, as = "text", encoding = "UTF-8")
@@ -459,15 +566,13 @@ Let's check that our API works!
     ```r
     url = paste0(base_url, "predict")
     endpoint = vetiver::vetiver_endpoint(url)
-    pred_data = penguins_data |>
+    pred_data = test_data |>
       dplyr::select(
         "island", "flipper_length_mm", "body_mass_g"
       ) |>
       dplyr::slice_sample(n = 10)
     predict(endpoint, pred_data)
     ```
-
-*   Our model gives us predictions!
 :::
 
 ## Task 3: Deploying your model
@@ -499,6 +604,16 @@ countdown::countdown(minutes = 10,
                     font_size = "2em")
 ```
 
+## Aside: What about Python?
+
+:::{.incremental}
+* Vetiver is available for both Python and R
+
+* In Python you would use Python ML libraries rather than {tidymodels}
+
+* Vetiver for Python documentation:
+:::
+
 ## Deploying to the cloud
 
 :::{.incremental}
@@ -523,6 +638,8 @@ countdown::countdown(minutes = 10,
 
 ## Docker files
 
+:::{.columns}
+:::{.column width="60%"}
 Our Dockerfile contains a series of commands to:
 
 :::{.incremental}
@@ -531,6 +648,12 @@ Our Dockerfile contains a series of commands to:
 * Install the required R packages.
 
 * Run the API in the deployed environment.
+:::
+:::
+
+:::{.column width="40%"}
+Docker logo or screenshot here
+:::
 :::
 
 ## Running Docker
@@ -589,12 +712,20 @@ Deployment is just the beginning...
 
 ## Why should I care?
 
+:::{.columns}
+:::{.column width="60%"}
 :::{.incremental}
 * Our model may perform well with *current* data.
 
   * But data evolves...
 
 * As data and user base grows, your model must scale.
+:::
+:::
+
+:::{.column width="40%"}
+Images representing change and users
+:::
 :::
 
 ## Some case studies...
@@ -615,12 +746,20 @@ Deployment is just the beginning...
 
 ## Model drift
 
+:::{.columns}
+:::{.column width="60%"}
 :::{.incremental}
 * As the data changes, our model predictions start to *drift*.
 
 * Identifying model drift is vital to any MLOps workflow.
 
 * Retrain the model with the latest data and redeploy.
+:::
+:::
+
+:::{.column width="40%"}
+Image representing "drift" or divergence here
+:::
 :::
 
 ## Task 4 - Model monitoring
@@ -687,22 +826,40 @@ countdown::countdown(minutes = 10,
 
 ## Advantages of MLOps
 
+:::{.columns}
+:::{.column width="60%"}
 :::{.incremental}
 * Retraining and redeployment can happen at the click of a button.
 
 * Encourages good practices like model versioning and packaging of source code.
 
 * Reduces human error.
+
+* Well defined and reproducible.
+:::
+:::
+
+:::{.column width="40%"}
+Conveyor belt image here?
+:::
 :::
 
 ## Current trends
 
+:::{.columns}
+:::{.column width="60%"}
 Real-time data
 
 :::{.incremental}
 * Sensor data can provide near-instant, real time measurements.
 
 * Digital twins already used in manufacturing, agriculture, and more!
+:::
+:::
+
+:::{.column width="40%"}
+Represent digital twins and sensors here
+:::
 :::
 
 # Thanks for listening!

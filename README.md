@@ -35,4 +35,11 @@ The workshop slot is 1 hour 30 minutes.
 - tidyr
 - vetiver
 
-The `exercises` folder and its contents should be uploaded for each attendee.
+### Datasets
+
+The workshop makes use of the following public datasets:
+
+- [Palmer Penguins](https://allisonhorst.github.io/palmerpenguins/)
+- [World Health Organisation Life Expectancy](https://www.kaggle.com/datasets/kumarajarshi/life-expectancy-who/data)
+
+The `scripts` folder and its contents should be uploaded for each attendee.
