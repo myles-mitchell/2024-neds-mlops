@@ -12,6 +12,7 @@ upcoming_course.yml
 requirements.txt
 spelling_issues.txt
 venv/
+*.html
 
 # Notes
 notes/_book/
