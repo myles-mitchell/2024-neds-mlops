@@ -4,24 +4,14 @@ version: 0.1.0
 front: Deploying Models into \\ Production
 project_name: 2024-nicd-mlops
 admin:
-  asana_tag: 'Workshop: MLOps'
+  asana_tag: 'Workshop: Deploying Models into Production'
   duration: 1.5
   price_band: Z
 check_pkgtitle: true
 cores: 1.0
 deb_pkgs: ~
 python_pkgs: ~
-r_pkgs:
-  - ggplot2
-  - httr
-  - jsonlite
-  - kknn
-  - palmerpenguins
-  - pins
-  - plumber
-  - tidymodels
-  - tidyr
-  - vetiver
+r_pkgs: jrNicdVetiver
 google_chrome: false
 language: r
 lintr: true
