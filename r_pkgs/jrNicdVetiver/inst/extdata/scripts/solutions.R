@@ -1,6 +1,7 @@
 library("ggplot2")
 library("readr")
 library("tidymodels")
+library("kknn")
 
 
 # Task 1: Data loading and tidying

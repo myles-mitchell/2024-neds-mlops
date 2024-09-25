@@ -1,5 +1,8 @@
 # Deploying Models into Production
 
+## Version 0.1.3 _2024-09-25_
+  * fix: Update library imports for demo scripts
+
 ## Version 0.1.2 _2024-09-25_
   * fix: Update data filepath in exercises.R
 

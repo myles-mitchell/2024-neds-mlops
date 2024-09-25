@@ -1,6 +1,7 @@
 library("ggplot2")
 library("palmerpenguins")
 library("tidymodels")
+library("kknn")
 
 # Visualise the data
 ggplot(penguins, aes(flipper_length_mm, body_mass_g)) +
