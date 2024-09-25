@@ -1,3 +1,6 @@
+# jrNicdVetiver 0.1.4 _2024-09-25_
+  * feat: Add files for upload to inst/extdata/scripts/
+
 # jrNicdVetiver 0.1.3 _2024-09-24_
   * feat: Update R package dependencies
 
