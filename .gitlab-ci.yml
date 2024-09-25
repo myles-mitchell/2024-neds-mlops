@@ -4,6 +4,6 @@ include:
     file: 'ci/template-gitlab-ci.yml'
 
 variables:
-  NOTES:   "FALSE" # Should we check notes?
+  NOTES:   "TRUE" # Should we check notes?
   SLIDES:  "FALSE" # Should we check slides?
   RELEASE: "TRUE" # Should we tag & run make final?
