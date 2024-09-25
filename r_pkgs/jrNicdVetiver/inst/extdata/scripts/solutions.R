@@ -54,7 +54,7 @@ model = recipe(
   fit(train_data)
 
 
-# e) Generate model predictions for the test data
+# e) Generate model predictions for the test data by running the code below
 
 model_pred = predict(model, test_data)
 

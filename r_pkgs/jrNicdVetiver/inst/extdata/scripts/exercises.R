@@ -46,9 +46,9 @@ life_expectancy = life_expectancy_full |>
 # Your code here
 
 
-# e) Generate model predictions for the test data
+# e) Generate model predictions for the test data by running the code below
 
-# Your code here
+model_pred = predict(model, test_data)
 
 
 # f) Run the code below to compute the root-mean-square error (RMSE).

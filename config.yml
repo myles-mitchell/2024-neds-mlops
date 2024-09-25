@@ -1,6 +1,6 @@
 # See https://jr-books.jmpr.io/training/the-config.yml-file.html
 # for documentation
-version: 0.1.3
+version: 0.1.5
 front: Deploying Models into \\ Production
 project_name: 2024-nicd-mlops
 admin:
@@ -27,7 +27,11 @@ related_courses:
     - ~
   suggested:
     - ~
-scripts: ~
+scripts:
+  no_qa:
+    - demo.R
+    - exercises.R
+    - solutions.R
 seed: ~
 trainers:
   primary: '@myles-mitchell'

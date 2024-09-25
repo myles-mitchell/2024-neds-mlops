@@ -1,5 +1,11 @@
 # Deploying Models into Production
 
+## Version 0.1.5 _2024-09-25_
+  * fix: No QA checks of demo.R, solutions.R and exercises.R
+
+## Version 0.1.4 _2024-09-25_
+  * fix: Unknown `model_pred` variable
+
 ## Version 0.1.3 _2024-09-25_
   * fix: Update library imports for demo scripts
 

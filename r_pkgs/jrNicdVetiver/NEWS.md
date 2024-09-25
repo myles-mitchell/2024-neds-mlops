@@ -1,3 +1,6 @@
+# jrNicdVetiver 0.1.8 _2024-09-25_
+  * fix: Unknown `model_pred` variable
+
 # jrNicdVetiver 0.1.7 _2024-09-25_
   * fix: Update library imports
 
