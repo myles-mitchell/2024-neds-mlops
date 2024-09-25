@@ -19,7 +19,7 @@ notes:
   advert: advert
   courses: course-dependencies
   render: rmarkdown::render
-  watermark: ~
+  watermark:
 readme: ~
 rss: false
 related_courses:
@@ -33,7 +33,7 @@ trainers:
   primary: '@myles-mitchell'
 vignettes: false
 website:
-  materials: ~
-  name: ~
+  materials:
+  name:
   publish: false
 

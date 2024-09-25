@@ -57,8 +57,11 @@ scripts/**/vm_scripts/
 scripts/scripts.zip
 
 # Quiz
-quiz/index_gdoc.docx
-quiz/index_slides.html
+quiz/assets
+quiz/index_gdoc*
+quiz/index_slides*
+quiz/libs
+quiz/style.css
 
 # R packages
 r_pkgs/*.tar.gz
