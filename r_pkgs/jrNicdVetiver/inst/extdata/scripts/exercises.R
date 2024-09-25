@@ -10,7 +10,7 @@ library("tidymodels")
 
 # a) Load and filter the life expectancy data by running the code below
 
-life_expectancy_full = readr::read_csv("~/life_expectancy.csv")
+life_expectancy_full = readr::read_csv("./life_expectancy.csv")
 life_expectancy = life_expectancy_full |>
   dplyr::filter(Year < 2005) |>
   dplyr::select(`Life expectancy`, `percentage expenditure`,

@@ -1,5 +1,8 @@
 # Deploying Models into Production
 
+## Version 0.1.2 _2024-09-25_
+  * fix: Update data filepath in exercises.R
+
 ## Version 0.1.1 _2024-09-25_
   * fix: Add scripts folder for artifact upload
 
