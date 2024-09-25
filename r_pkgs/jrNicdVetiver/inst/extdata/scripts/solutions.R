@@ -10,7 +10,7 @@ library("tidymodels")
 
 # a) Load and filter the life expectancy data by running the code below
 
-life_expectancy_full = readr::read_csv("~/life_expectancy.csv")
+life_expectancy_full = readr::read_csv("./life_expectancy.csv")
 life_expectancy = life_expectancy_full |>
   dplyr::filter(Year < 2005) |>
   dplyr::select(`Life expectancy`, `percentage expenditure`,
@@ -45,7 +45,8 @@ test_data = testing(life_expectancy_split)
 # "regression" task as opposed to a "classification" task!
 
 model = recipe(
-  `Life expectancy` ~ `percentage expenditure` + `Total expenditure` + Population + BMI + Schooling,
+  `Life expectancy` ~ `percentage expenditure` + `Total expenditure` +
+    Population + BMI + Schooling,
   data = train_data
 ) |>
   workflow(nearest_neighbor(mode = "regression")) |>
@@ -146,7 +147,8 @@ train_data = training(life_expectancy_split)
 test_data = testing(life_expectancy_split)
 
 model = recipe(
-  `Life expectancy` ~ `percentage expenditure` + `Total expenditure` + Population + BMI + Schooling,
+  `Life expectancy` ~ `percentage expenditure` + `Total expenditure` +
+    Population + BMI + Schooling,
   data = train_data
 ) |>
   workflow(nearest_neighbor(mode = "regression")) |>

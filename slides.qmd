@@ -720,6 +720,8 @@ Deployment is just the beginning...
   * But data evolves...
 
 * As data and user base grows, your model must scale.
+
+* The context in which your model was trained matters!
 :::
 :::
 

@@ -1,3 +1,6 @@
+# jrNicdVetiver 0.1.5 _2024-09-25_
+  * fix: Linting failures
+
 # jrNicdVetiver 0.1.4 _2024-09-25_
   * feat: Add files for upload to inst/extdata/scripts/
 
