@@ -6,7 +6,7 @@ The aim is to provide a brief introduction to the MLOps workflow and monitoring 
 
 The workshop slot is 1 hour 30 minutes.
 
-### Suggested Timings
+## Suggested Timings
 
 * Introduction to MLOps: 15 min
 
@@ -22,7 +22,7 @@ The workshop slot is 1 hour 30 minutes.
 
 * Closing discussion and Q&A: 15 min
 
-### R dependencies
+## R dependencies
 
 - dplyr
 - ggplot2
@@ -40,7 +40,7 @@ The workshop slot is 1 hour 30 minutes.
 - viridis
 - yardstick
 
-### Datasets
+## Datasets
 
 The workshop makes use of the following public datasets:
 
