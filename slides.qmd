@@ -27,7 +27,7 @@ format:
 <center>
 **Check in using the QR code!**
 
-![](img/am-check-in.jpg){width="40%" fig-alt="QR code for morning session check-in"}
+![](img/pm-check-in.jpg){width="40%" fig-alt="QR code for afternoon session check-in"}
 </center>
 :::
 :::
@@ -145,7 +145,7 @@ Password: **pomelo-jujube**
 *   QR Code:
 
     <center>
-    ![](img/am-extra-points.jpg)
+    ![](img/pm-extra-points.jpg)
     </center>
 :::
 
@@ -321,7 +321,7 @@ Open **demo.R** in RStudio...
 *   Finished? Scan the QR code for extra points!
 
     <center>
-    ![](img/am-extra-points.jpg)
+    ![](img/pm-extra-points.jpg)
     </center>
 :::
 
@@ -526,7 +526,7 @@ mean(
 *   Finished? Scan the QR code for extra points!
 
     <center>
-    ![](img/am-extra-points.jpg)
+    ![](img/pm-extra-points.jpg)
     </center>
 :::
 
@@ -715,7 +715,7 @@ Checking that our API works!
 *   Finished? Scan the QR code for extra points!
 
     <center>
-    ![](img/am-extra-points.jpg)
+    ![](img/pm-extra-points.jpg)
     </center>
 :::
 
@@ -887,7 +887,7 @@ Deployment is just the beginning...
 *   QR Code:
 
     <center>
-    ![](img/am-extra-points.jpg)
+    ![](img/pm-extra-points.jpg)
     </center>
 :::
 
@@ -932,7 +932,7 @@ countdown::countdown(minutes = 5,
 *   Finished? Scan the QR code for extra points!
 
     <center>
-    ![](img/am-extra-points.jpg)
+    ![](img/pm-extra-points.jpg)
     </center>
 :::
 
@@ -1080,7 +1080,7 @@ Consider our life expectancy data from the exercises...
 <center>
 **Workshop QR code**
 
-![](img/am-check-in.jpg){width="40%" fig-alt="QR code for morning session check-in"}
+![](img/pm-check-in.jpg){width="40%" fig-alt="QR code for afternoon session check-in"}
 </center>
 :::
 :::
