@@ -21,11 +21,12 @@ format:
 
   * URL: [https://mlops-intro.jumpingrivers.training/welcome/](https://mlops-intro.jumpingrivers.training/welcome/)
 
-  * Master password: **PASSWORD**
+  * Master password: **pomelo-jujube**
 :::
 :::{.column width="50%"}
 <center>
 **Check in using the QR code!**
+
 ![](img/am-check-in.jpg){width="40%" fig-alt="QR code for morning session check-in"}
 </center>
 :::
@@ -37,7 +38,7 @@ format:
 
 **https://mlops-intro.jumpingrivers.training/welcome/**
 
-Password: **PASSWORD**
+Password: **pomelo-jujube**
 
 :::
 
@@ -95,7 +96,8 @@ Password: **PASSWORD**
 ## How will this workshop run?
 
 :::{.incremental}
-* Presentation slides ([bit.ly/2024-nicd-mlops](https://bit.ly/2024-nicd-mlops)).
+* Presentation slides
+  ([bit.ly/2024-nicd-mlops](https://bit.ly/2024-nicd-mlops)).
 
 * R coding demos in virtual environment.
 
@@ -113,23 +115,53 @@ Password: **PASSWORD**
 
 * Building a basic MLOps workflow
 
-* Best practices at every step of the chain
-
-* All tools are opensource and free to install!
+* We will be deploying models **locally** only...
+  * Means all tools are opensource and free!
 
 * Want to contribute?
-  * Raise your hand for questions and comments.
+  * Raise your hand for questions and comments (bonus points...).
 :::
 
 ## What you get from me
 
 :::{.incremental}
-* GitHub repo ([github.com/jumpingrivers/2024-nicd-mlops](https://github.com/jumpingrivers/2024-nicd-mlops)):
+* GitHub repo
+  ([github.com/jumpingrivers/2024-nicd-mlops](https://github.com/jumpingrivers/2024-nicd-mlops)):
   * HTML slides (also available at [bit.ly/2024-nicd-mlops](https://bit.ly/2024-nicd-mlops)).
   * Demo and exercise scripts.
 
 * Useful links to other resources.
 :::
+
+## Discussion
+
+:::{.incremental}
+*   What is MLOps?
+
+*   **Discuss**
+
+*   Extra points if you contribute...
+
+*   QR Code:
+
+    <center>
+    ![](img/am-extra-points.jpg)
+    </center>
+:::
+
+```{r}
+countdown::countdown(minutes = 5,
+                    color_border = "#490f3a",
+                    color_text = "#490f3a",
+                    color_running_text = "#fcfbfa",
+                    color_running_background = "#490f3a",
+                    color_finished_text = "#490f3a",
+                    color_finished_background = "#fcfbfa",
+                    top = 0,
+                    margin = "1.2em",
+                    font_size = "2em")
+```
+
 
 # Introduction to MLOps
 
@@ -153,7 +185,8 @@ The typical data science workflow:
 :::{.incremental}
 * The classical workflow prioritises understanding the *system* behind the data.
 * By contrast, Machine Learning prioritises *prediction*.
-* As data grows we reconsider and update our ML models to optimise predictive power.
+* As data grows we reconsider and update our ML models to optimise predictive
+  power.
 * A goal of MLOps is to streamline this cycle.
 :::
 
@@ -175,9 +208,9 @@ MLOps: Machine Learning Operations
 ## MLOps frameworks
 
 * Amazon SageMaker
-* Microsoft Azure
 * Google Cloud Platform
-* Vetiver by Posit
+* Kubeflow (ML toolkit for Kubernetes)
+* Vetiver by Posit (free to install, nice for beginners)
 * And the list goes on...
 
 <center>
@@ -188,7 +221,7 @@ MLOps: Machine Learning Operations
 :::{.columns}
 :::{.column width="60%"}
 :::{.incremental}
-* Opensource tool maintained by Posit PBC (formerly RStudio).
+* Opensource tool maintained by Posit (formerly RStudio).
 * Integrates with popular ML libraries in R and Python.
 * Fluent tooling to version, deploy and monitor a trained model.
 * Supports deploying models to localhost - great way to learn MLOps!
@@ -214,6 +247,97 @@ MLOps: Machine Learning Operations
 * Repeat
 :::
 
+## Modelling penguins!
+
+Let's set up a **basic** MLOps workflow!
+
+:::{.incremental}
+*   Palmer Penguins dataset:
+
+    ```{r}
+    #| echo: true
+    #| code-line-numbers: 1,2,3|1|3
+    library("palmerpenguins")
+
+    names(penguins)
+    ```
+:::
+
+---
+
+```{r}
+#| echo: false
+#| message: false
+#| output-location: slide
+#| fig-cap: "Palmer Penguin dataset"
+#| fig-alt: "Scatter plot showing positive relationship between penguin flipper length and penguin body mass. The data points are coloured based on species and shaped based on island. The Gentoo penguins tend to have higher body mass and flipper length than Adelie and Chinstrap."
+library("ggplot2")
+
+ggplot(penguins, aes(flipper_length_mm, body_mass_g)) +
+  geom_point(aes(colour = species, shape = island)) +
+  theme_minimal() +
+  xlab("Flipper Length(mm)") +
+  ylab("Body Mass(g)") +
+  viridis::scale_colour_viridis(discrete = TRUE)
+```
+
+## Data tidying and cleaning
+
+Let's predict species using flipper length, body mass and island!
+
+:::{.incremental}
+*   Using {tidyr} and {rsample}:
+
+    ```{r}
+    #| echo: true
+    #| code-line-numbers: 1,2,3,4,5,6,7,8,9|1,2|4,5,6,7|8,9
+    # Drop missing data
+    penguins_data = tidyr::drop_na(penguins)
+    
+    # Split into train and test sets
+    penguins_split = rsample::initial_split(
+      penguins_data, prop = 0.8
+    )
+    train_data = rsample::training(penguins_split)
+    test_data = rsample::testing(penguins_split)
+    ```
+:::
+
+# Modelling penguins!
+
+Open **demo.R** in RStudio...
+
+## Task 1: Data loading and tidying
+
+* Open **exercises.R**
+
+:::{.incremental}
+*   Attempt **"Task 1: Data loading and tidying"**
+
+*   Need help? Check **demo.R** or raise your hand
+
+*   Not an R user? The solution can be found in **solutions.R**
+
+*   Finished? Scan the QR code for extra points!
+
+    <center>
+    ![](img/am-extra-points.jpg)
+    </center>
+:::
+
+```{r}
+countdown::countdown(minutes = 10,
+                    color_border = "#490f3a",
+                    color_text = "#490f3a",
+                    color_running_text = "#fcfbfa",
+                    color_running_background = "#490f3a",
+                    color_finished_text = "#490f3a",
+                    color_finished_background = "#fcfbfa",
+                    top = 0,
+                    margin = "1.2em",
+                    font_size = "2em")
+```
+
 ## Data best practices
 
 :::{.columns}
@@ -221,14 +345,18 @@ MLOps: Machine Learning Operations
 Loading and importing
 
 :::{.incremental}
-* Consider moving from large CSV files to a more efficient format like Parquet.
-* Add a data validation check to prevent unexpected data formats entering the pipeline.
-* Consider tools like {arrow} and Apache Spark for fast processing.
+* Consider moving from large CSV files to a more efficient format like Apache
+  Parquet and Apache Arrow.
+* Add a data validation check to prevent unexpected data formats entering the
+  pipeline.
+* Consider tools like Apache Spark for fast processing of Big Data.
 :::
 :::
 
 :::{.column width="40%"}
-Parquet, arrow and Spark images here.
+<center>
+![](img/parquet-logo.png)
+</center>
 :::
 :::
 
@@ -246,7 +374,9 @@ Tidying & cleaning
 :::
 
 :::{.column width="40%"}
-Tidyverse hex stickers here.
+<center>
+![](img/tidyverse-logo.png)
+</center>
 :::
 :::
 
@@ -265,7 +395,10 @@ Versioning
 :::
 
 :::{.column width="40%"}
-Git and {pins} here.
+<center>
+![](img/git-logo.png)
+![](img/pins-logo.png)
+</center>
 :::
 :::
 
@@ -273,123 +406,31 @@ Git and {pins} here.
 
 :::{.columns}
 :::{.column width="60%"}
-Take advantage of native MLOps tooling
+Take advantage of native tools on ML platforms
 
 :::{.incremental}
-* Your preferred MLOps platform probably has built-in tools for data wrangling!
-* SageMaker:
-  * Data wrangler and feature store
-  * Canvas for data pre-processing and visualisation
+* Your preferred ML platform probably has built-in tools for data wrangling!
+  * SageMaker Data Wrangler
+  * H2O.ai feature engineering (no code)
 :::
 :::
 
 :::{.column width="40%"}
-Canvas and other logos.
+<center>
+![](img/h2o-logo.png)
+</center>
 :::
 :::
 
-## Demo
-
-* Palmer Penguins dataset:
-
-```r
-library("ggplot2")
-library("palmerpenguins")
-
-ggplot(penguins, aes(flipper_length_mm, body_mass_g)) +
-  geom_point(aes(colour = species, shape = island)) +
-  theme_minimal() +
-  xlab("Flipper Length(mm)") +
-  ylab("Body Mass(g)") +
-  viridis::scale_colour_viridis(discrete = TRUE)
-```
-
-## Demo
-
-*   Let's predict species using flipper length, body mass and island!
-
-*   Using {tidyr} and {rsample}:
-
-    ```r
-    # Drop missing data
-    penguins_data = tidyr::drop_na(penguins)
-    
-    # Split into train and test sets
-    penguins_split = rsample::initial_split(penguins_data, prop = 0.8)
-    train_data = training(penguins_split)
-    test_data = testing(penguins_split)
-    ```
-
-## Task 1: Preparing your data
-
-- Open **task1.txt**
-
-- Give the attendees same task as code above (stored in demo1.txt) but with different dataset.
-
-- Include a bonus question for R experts (like an extra step for feature selection).
-
-- Non-R experts should just try running the solution script and ask Myles questions.
-
-:::{.incremental}
-- Not an R user? The solution can be found in **task1_solutions.R**
-
-- You have just built a data validation pipeline!
-:::
-
-```{r}
-countdown::countdown(minutes = 10,
-                    color_border = "#490f3a",
-                    color_text = "#490f3a",
-                    color_running_text = "#fcfbfa",
-                    color_running_background = "#490f3a",
-                    color_finished_text = "#490f3a",
-                    color_finished_background = "#fcfbfa",
-                    top = 0,
-                    margin = "1.2em",
-                    font_size = "2em")
-```
-
-
-## Modelling best practices
-
-:::{.columns}
-:::{.column width="60%"}
-Choosing the right model can be tough!
-
-:::{.incremental}
-* Use cheatsheets like [URL] to identify potential model families.
-* Include cross validation to optimise hyperparameters.
-* Try auto-ML tools like H2O.ai and SageMaker Autopilot.
-:::
-:::
-
-:::{.column width="40%"}
-H2O.ai and Autopilot logos here
-:::
-:::
-
-## Modelling best practices
-
-:::{.columns}
-:::{.column width="60%"}
-Versioning
-
-:::{.incremental}
-* Store scoring metrics and model parameters from each experiment.
-* Any previously-deployed model should be retrievable, along with the data used to train it.
-:::
-:::
-
-:::{.column width="40%"}
-Git and {pins} logos here
-:::
-:::
-
-## Demo
+## Modelling penguins!
 
 * Let's set up the model recipe in {tidymodels}:
 
-```r
+```{r}
+#| echo: true
+#| code-line-numbers: 1,2,3,4,5,6,7,8|1|3,4,5,6|7|8
+library("tidymodels")
+
 model = recipe(
   species ~ island + flipper_length_mm + body_mass_g,
   data = train_data
@@ -398,11 +439,13 @@ model = recipe(
   fit(train_data)
 ```
 
-## Demo
+## Modelling penguins!
 
 Our model object can now be used to predict `species`{.r}:
 
-```r
+```{r}
+#| echo: true
+#| code-line-numbers: 1,2,3,4,5,6,7,8|1|3,4,5,6,7,8
 model_pred = predict(model, test_data)
 
 # Accuracy for unseen test data
@@ -419,10 +462,14 @@ mean(
 *   Use a *Vetiver model* object to collate all of the info needed to store,
     deploy and version our model:
 
-    ```r
-    v_model = vetiver::vetiver_model(model,
-                                     model_name = "k-nn",
-                                     description = "penguin-species")
+    ```{r}
+    #| echo: true
+    #| code-line-numbers: 1,2,3,4,5,6|1,2,3,4,5|2|3|4|6
+    v_model = vetiver::vetiver_model(
+      model,
+      model_name = "k-nn",
+      description = "penguin-species"
+    )
     v_model
     ```
 :::
@@ -431,56 +478,56 @@ mean(
 
 `v_model`{.r} is a list with six elements
 
+:::{.columns}
+:::{.column width="50%"}
+
 :::{.incremental}
 *   View the contents:
 
-    ```r
+    ```{r}
+    #| echo: true
     names(v_model)
     ```
 
 *   View the model description:
 
-    ```r
+    ```{r}
+    #| echo: true
     v_model$description
     ```
 :::
+:::
 
-## Vetiver model
-
+:::{.column width="50%"}
 :::{.incremental}
 *   View the metadata:
 
-    ```r
+    ```{r}
+    #| echo: true
     v_model$metadata
     ```
 :::
-
-## Model storage
-
-:::{.incremental}
-*   Use {pins} to store R or Python objects for reuse later.
-
-*   Store pins using "boards" including Azure, Amazon S3 or even Google drive!
-
-*   Vetiver integrates nicely with Posit Connect:
-
-    ```r
-    vetiver::vetiver_pin_write(board = pins::board_connect(), v_model)
-    ```
+:::
 :::
 
-## Task 2: Creating a Vetiver model
+# Demo
 
-- Open **task2.txt**
+## Task 2: Modelling
 
-- Run your solution to task 1 to prepare the data
-
-- Reproduce same modelling code as above but for different model and same dataset as in Task 1
-
-- Again, provide solution script for non-R people, and bonus question for experts.
+* Open **exercises.R** (and rerun your Task 1 code)
 
 :::{.incremental}
-- Your pipeline now includes model training and scoring!
+*   Attempt **"Task 2: Modelling"**
+
+*   Need help? Check **demo.R** or raise your hand
+
+*   Not an R user? The solution can be found in **solutions.R**
+
+*   Finished? Scan the QR code for extra points!
+
+    <center>
+    ![](img/am-extra-points.jpg)
+    </center>
 :::
 
 ```{r}
@@ -496,23 +543,85 @@ countdown::countdown(minutes = 10,
                     font_size = "2em")
 ```
 
-## Deployment best practices
+## Modelling best practices
 
 :::{.columns}
 :::{.column width="60%"}
+Choosing the right model can be tough!
+
 :::{.incremental}
-* Try deploying locally to check that your model API works as expected.
-
-* Use environment managers like {renv} to store model dependencies.
-
-* Use containers like Docker to bundle model source code with dependencies.
+* Use cheatsheets like [datacamp.com/cheat-sheet/machine-learning-cheat-sheet](https://www.datacamp.com/cheat-sheet/machine-learning-cheat-sheet) to identify potential model families.
+* Include cross validation to optimise hyperparameters.
+* Try auto-ML tools like H2O.ai and SageMaker Autopilot.
 :::
 :::
 
 :::{.column width="40%"}
-{renv} and Docker logos here
+<center>
+![](img/h2o-logo.png)
+![](img/sagemaker-logo.jpg)
+</center>
 :::
 :::
+
+## Modelling best practices
+
+:::{.columns}
+:::{.column width="60%"}
+Versioning
+
+:::{.incremental}
+* Store scoring metrics and model parameters from each experiment.
+* Any previously-deployed model should be retrievable, along with the data used
+  to train it.
+:::
+:::
+
+:::{.column width="40%"}
+<center>
+![](img/git-logo.png)
+![](img/pins-logo.png)
+</center>
+:::
+:::
+
+## Model versioning
+
+:::{.incremental}
+*   Use {pins} to store R or Python objects for reuse later.
+
+*   Store pins using "boards" including Posit Connect, Amazon S3 or even Google
+    drive!
+
+*   Storing in a temporary directory:
+
+    ```{r}
+    #| echo: true
+    #| code-line-numbers: 1,2|1|2
+    model_board = pins::board_temp(versioned = TRUE)
+    model_board |> vetiver::vetiver_pin_write(v_model)
+    ```
+:::
+
+## Retrieving a pinned model
+
+:::{.incremental}
+*   Retrieve a model
+
+    ```{r}
+    #| echo: true
+    model_board |> vetiver::vetiver_pin_read("k-nn")
+    ```
+
+*   Inspect the stored versions
+
+    ```{r}
+    #| echo: true
+    model_board |> pins::pin_versions("k-nn")
+    ```
+:::
+
+# Model deployment
 
 ## Deployment using Vetiver
 
@@ -526,44 +635,59 @@ countdown::countdown(minutes = 10,
 :::
 
 :::{.column width="40%"}
-{plumber} logo here
+<center>
+![](img/plumber-logo.png)
+</center>
 :::
 :::
 
 ## Deploying locally
 
 :::{.incremental}
-*   {vetiver} and {plumber} support local deployment.
+*   {vetiver} and {plumber} support local deployment:
 
-    ```r
+    ```{r}
+    #| echo: true
+    #| eval: false
+    #| code-line-numbers: 1,2,3|1|2|3
     plumber::pr() |>
       vetiver::vetiver_api(v_model) |>
       plumber::pr_run()
     ```
 
-*   Great for beginners to MLOps!
+*   Opens the API in a browser window
+
+*   Great for beginners to MLOps and APIs!
 :::
 
 ## Deploying locally
 
 Check the deployment with:
 
-```r
-base_url = "127.0.0.1:8080/"  # Double-check 4-digit port number
+```{r}
+#| echo: true
+#| eval: false
+#| code-line-numbers: 1,2,3,4,5,6,7|1|2,3|4,5,6,7
+base_url = "127.0.0.1:8080/"  # update the port number!
 url = paste0(base_url, "ping")
 r = httr::GET(url)
-metadata = httr::content(r, as = "text", encoding = "UTF-8")
+metadata = httr::content(
+  r, as = "text", encoding = "UTF-8"
+)
 jsonlite::fromJSON(metadata)
 ```
 
 ## Model predictions
 
-Let's check that our API works!
+Checking that our API works!
 
 :::{.incremental}
 *   Endpoints `metadata` and `predict` allow programmatic queries:
 
-    ```r
+    ```{r}
+    #| echo: true
+    #| eval: false
+    #| code-line-numbers: 1,2,3,4,5,6,7,8|1|2|3,4,5,6,7|8
     url = paste0(base_url, "predict")
     endpoint = vetiver::vetiver_endpoint(url)
     pred_data = test_data |>
@@ -575,20 +699,24 @@ Let's check that our API works!
     ```
 :::
 
+# Demo
+
 ## Task 3: Deploying your model
 
-- Open **task3.txt**
-
-- Repeat local deployment and prediction for model created in Task 2.
-
-- Provide solution for non-R people.
-
-- Make sure demo3.R contains code from demo above.
-
-- Also check that local deployment / prediction works in Posit Workbench.
+* Open **exercises.R**
 
 :::{.incremental}
-- Your model is in production! But we're not finished yet...
+*   Attempt **"Task 3: Deploying your model"**
+
+*   Need help? Check **demo.R** or raise your hand
+
+*   Not an R user? The solution can be found in **solutions.R**
+
+*   Finished? Scan the QR code for extra points!
+
+    <center>
+    ![](img/am-extra-points.jpg)
+    </center>
 :::
 
 ```{r}
@@ -607,11 +735,36 @@ countdown::countdown(minutes = 10,
 ## Aside: What about Python?
 
 :::{.incremental}
-* Vetiver is available for both Python and R
+* Vetiver is available for both Python and R!
 
 * In Python you would use Python ML libraries rather than {tidymodels}
+  * scikit learn
+  * PyTorch
+  * XGBoost
+  * statsmodels
 
-* Vetiver for Python documentation:
+* Vetiver documentation: [vetiver.posit.co](https://vetiver.posit.co/)
+:::
+
+## Deployment best practices
+
+:::{.columns}
+:::{.column width="60%"}
+:::{.incremental}
+* Try deploying locally to check that your model API works as expected.
+
+* Use environment managers like {renv} to store model dependencies.
+
+* Use containers like Docker to bundle model source code with dependencies.
+:::
+:::
+
+:::{.column width="40%"}
+<center>
+![](img/renv-logo.png)
+![](img/docker-logo.png)
+</center>
+:::
 :::
 
 ## Deploying to the cloud
@@ -619,10 +772,13 @@ countdown::countdown(minutes = 10,
 :::{.incremental}
 *   Vetiver also streamlines deployment to the production environment:
 
-    ```r
+    ```{r}
+    #| echo: true
+    #| eval: false
+    #| code-line-numbers: 1,2,3,4,5|2|3|4
     vetiver::vetiver_prepare_docker(
       pins::board_connect(), 
-      "colin/k-nn", 
+      "myles/k-nn", 
       docker_args = list(port = 8080)
     )
     ```
@@ -652,7 +808,9 @@ Our Dockerfile contains a series of commands to:
 :::
 
 :::{.column width="40%"}
-Docker logo or screenshot here
+<center>
+![](img/docker-logo.png)
+</center>
 :::
 :::
 
@@ -677,7 +835,7 @@ Docker logo or screenshot here
     docker run --rm --publish 8080:8080 my-first-model
     ```
 
-*   These steps can be run in sequence using a **Makefile**.
+*   These steps can be run in sequence using a CI/CD pipeline.
 :::
 
 ## Deploying to Connect
@@ -687,19 +845,24 @@ Docker logo or screenshot here
 
     ```r
     vetiver::vetiver_deploy_rsconnect(
-      board = pins::board_connect(), "colin/k-nn"
+      board = pins::board_connect(), "myles/k-nn"
     )
     ```
 
-*   We can also publish to Amazon SageMaker using `vetiver_deploy_sagemaker()`{.r}
+*   We can also publish to Amazon SageMaker using
+    `vetiver_deploy_sagemaker()`{.r}
 :::
 
 ## Cost considerations for cloud MLOps
 
-:::{.incremental}
-* AWS offers 2 month free trial for Amazon SageMaker.
+Cloud MLOps normally doesn't come free...
 
-* Azure Machine Learning is offered at no extra charge to existing Azure customers.
+:::{.incremental}
+* Some platforms offer free trials (e.g., SageMaker).
+
+* May be cheaper if you're already invested in a particular cloud platform
+  * Data services
+  * App deployment
 
 * Costs can rise depending on computational resources consumed.
 
@@ -710,66 +873,22 @@ Docker logo or screenshot here
 
 Deployment is just the beginning...
 
-## Why should I care?
-
-:::{.columns}
-:::{.column width="60%"}
-:::{.incremental}
-* Our model may perform well with *current* data.
-
-  * But data evolves...
-
-* As data and user base grows, your model must scale.
-
-* The context in which your model was trained matters!
-:::
-:::
-
-:::{.column width="40%"}
-Images representing change and users
-:::
-:::
-
-## Some case studies...
-
-
-
-## Data evolution
+## Discussion - Model monitoring
 
 :::{.incremental}
-* The underlying distibutions of data can and will change:
+*   Why should a deployed model be closely monitored?
 
-  * The balance of penguin species will change with global warming.
+*   What warning signs would you look out for?
 
-* The intrinsic relationship between the target variable and predictors can change:
+*   **Discuss**
 
-  * Gentoo penguin body mass could change over time due to availability of food.
-:::
+*   Bonus points if you contribute...
 
-## Model drift
+*   QR Code:
 
-:::{.columns}
-:::{.column width="60%"}
-:::{.incremental}
-* As the data changes, our model predictions start to *drift*.
-
-* Identifying model drift is vital to any MLOps workflow.
-
-* Retrain the model with the latest data and redeploy.
-:::
-:::
-
-:::{.column width="40%"}
-Image representing "drift" or divergence here
-:::
-:::
-
-## Task 4 - Model monitoring
-
-:::{.incremental}
-* How might we identify model drift?
-
-* **Discuss**
+    <center>
+    ![](img/am-extra-points.jpg)
+    </center>
 :::
 
 ```{r}
@@ -785,30 +904,36 @@ countdown::countdown(minutes = 5,
                     font_size = "2em")
 ```
 
-## Model monitoring
-
-Some best practices:
+## Model drift
 
 :::{.incremental}
-* As users query the model API, store the model predictions.
+* Model performance may *drift* as the data evolves...
+  * *Data* drift: statistical distribution of input feature changes.
+  * *Concept* drift: relationship between target and input variables changes.
 
-* A drift in the distribution of the model predictions is a classic sign of drift.
-
-* As our data grows, run checks of the underlying distributions.
-
-* When drift is detected, retrain with the latest data and redeploy.
+* The context in which your model was trained matters!
 :::
 
-## Task 5: Detecting model drift
+<center>
+![](img/polar-bears.jpg) 
+</center>
 
-- Open **task4.txt**
+## Task 4: Detecting model drift
 
-- The **lemurs_new.csv** contains the latest version of data
-
-- Run your predicti
+* Open **exercises.R**
 
 :::{.incremental}
-- Your model is in production! But we're not finished yet...
+*   Attempt **"Task 4: Detecting model drift"**
+
+*   Need help? Check **demo.R** or raise your hand
+
+*   Not an R user? The solution can be found in **solutions.R**
+
+*   Finished? Scan the QR code for extra points!
+
+    <center>
+    ![](img/am-extra-points.jpg)
+    </center>
 :::
 
 ```{r}
@@ -824,12 +949,104 @@ countdown::countdown(minutes = 10,
                     font_size = "2em")
 ```
 
-# MLOps: Advantages and current trends
+## Model monitoring
 
-## Advantages of MLOps
+:::{.incremental}
+* As your data grows, run regular checks of model performance.
 
-:::{.columns}
-:::{.column width="60%"}
+* Monitor key model metrics over time.
+
+* You may notice a downward trend...
+
+* Retrain the model with the latest data and redeploy.
+:::
+
+## Monitoring demand
+
+As data and user base grows, your model needs to *scale*.
+
+:::{.incremental}
+* Upgrade your computational resources.
+
+* Consider moving from a relational database to a data warehouse.
+
+* Check how many users your license (AWS, Posit, etc) permits.
+:::
+
+## Monitoring with Vetiver
+
+Vetiver has built in functions to track scoring metrics over time.
+
+:::{.incremental}
+* Requires a time variable in the dataset.
+
+* Load the model from your {pins} board.
+
+* Make sure you are scoring the *deployed* version.
+
+* Specify the *period* for scoring (weeks, months, years, ...).
+
+* Model metrics can also be stored with {pins}!
+:::
+
+## Monitoring with Vetiver
+
+Consider our life expectancy data from the exercises...
+
+:::{.incremental}
+*   Compute scoring metrics over specified period:
+
+    ```{r}
+    #| echo: true
+    #| eval: false
+    #| code-line-numbers: 1,2,3,4,5,6|1,2,3|4,5,6
+    new_metrics = vetiver::augment(
+      v_model, new_data = recent_data
+    ) |>
+      vetiver::vetiver_compute_metrics(
+        Date, "year", `Life expectancy`, .pred
+      )
+    ```
+
+*   Requires a `Date` column (generate from `Year`).
+
+*   `recent_data`: could be data from the past year or *all* historical data.
+:::
+
+## Monitoring with Vetiver
+
+*   Pin the metrics
+
+    ```{r}
+    #| echo: true
+    #| eval: false
+    #| code-line-numbers: 1,2,3,4|1|2,3,4|3
+    model_board |>
+      vetiver::vetiver_pin_metrics(
+        new_metrics, "k-nn_metrics", overwrite = TRUE
+      )
+    ```
+
+:::{.incremental}
+*   Plot the metrics
+
+    ```{r}
+    #| echo: true
+    #| eval: false
+    #| code-line-numbers: 1,2,3,4,5,6|3,4|5,6
+    library("ggplot2")
+    
+    monitoring_metrics = model_board |>
+      pins::pin_read("k-nn_metrics")
+    vetiver::vetiver_plot_metrics(monitoring_metrics) +
+      scale_size(range = c(2, 4))
+    ```
+:::
+
+# Closing thoughts
+
+## Pros / cons of MLOps
+
 :::{.incremental}
 * Retraining and redeployment can happen at the click of a button.
 
@@ -838,43 +1055,45 @@ countdown::countdown(minutes = 10,
 * Reduces human error.
 
 * Well defined and reproducible.
-:::
+
+* **Consider whether it is worth the cost/effort before starting.**
 :::
 
-:::{.column width="40%"}
-Conveyor belt image here?
-:::
-:::
-
-## Current trends
+## Thanks for listening!
 
 :::{.columns}
-:::{.column width="60%"}
-Real-time data
-
+:::{.column width="50%}
 :::{.incremental}
-* Sensor data can provide near-instant, real time measurements.
+* **Remember to provide feedback!**
 
-* Digital twins already used in manufacturing, agriculture, and more!
+* Open this workshop in the conference app
+
+* Tap "More"
+
+* Tap "Feedback"
+
+* Fill in the form
 :::
 :::
 
-:::{.column width="40%"}
-Represent digital twins and sensors here
-:::
-:::
+:::{.column width="50%"}
+<center>
+**Workshop QR code**
 
-# Thanks for listening!
+![](img/am-check-in.jpg){width="40%" fig-alt="QR code for morning session check-in"}
+</center>
+:::
+:::
 
 ## Links & Resources
 
 :::{style="font-size: 45px;"}
 :::{.columns}
 :::{.column width="45%"}
-* Remember to provide feedback!
 * Slides: [bit.ly/2024-nicd-mlops](https://bit.ly/2024-nicd-mlops)
 * GitHub repo: [github.com/jumpingrivers/2024-nicd-mlops](https://github.com/jumpingrivers/2024-nicd-mlops)
 * Jumping Rivers (courses & blog): [jumpingrivers.com](https://www.jumpingrivers.com/)
+* Vetiver docs: [vetiver.posit.co](https://vetiver.posit.co/)
 * MLOps platforms compared: [https://valohai.com/mlops-platforms-compared/](valohai.com/mlops-platforms-compared/)
 :::
 :::{.column width="55%"}
