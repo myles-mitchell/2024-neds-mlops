@@ -150,7 +150,7 @@ Password: **pomelo-jujube**
 :::
 
 ```{r}
-countdown::countdown(minutes = 5,
+countdown::countdown(minutes = 3,
                     color_border = "#490f3a",
                     color_text = "#490f3a",
                     color_running_text = "#fcfbfa",
@@ -326,7 +326,7 @@ Open **demo.R** in RStudio...
 :::
 
 ```{r}
-countdown::countdown(minutes = 10,
+countdown::countdown(minutes = 5,
                     color_border = "#490f3a",
                     color_text = "#490f3a",
                     color_running_text = "#fcfbfa",
@@ -531,7 +531,7 @@ mean(
 :::
 
 ```{r}
-countdown::countdown(minutes = 10,
+countdown::countdown(minutes = 5,
                     color_border = "#490f3a",
                     color_text = "#490f3a",
                     color_running_text = "#fcfbfa",
@@ -720,7 +720,7 @@ Checking that our API works!
 :::
 
 ```{r}
-countdown::countdown(minutes = 10,
+countdown::countdown(minutes = 5,
                     color_border = "#490f3a",
                     color_text = "#490f3a",
                     color_running_text = "#fcfbfa",
@@ -892,7 +892,7 @@ Deployment is just the beginning...
 :::
 
 ```{r}
-countdown::countdown(minutes = 5,
+countdown::countdown(minutes = 3,
                     color_border = "#490f3a",
                     color_text = "#490f3a",
                     color_running_text = "#fcfbfa",
@@ -937,7 +937,7 @@ countdown::countdown(minutes = 5,
 :::
 
 ```{r}
-countdown::countdown(minutes = 10,
+countdown::countdown(minutes = 5,
                     color_border = "#490f3a",
                     color_text = "#490f3a",
                     color_running_text = "#fcfbfa",
@@ -1094,7 +1094,7 @@ Consider our life expectancy data from the exercises...
 * GitHub repo: [github.com/jumpingrivers/2024-nicd-mlops](https://github.com/jumpingrivers/2024-nicd-mlops)
 * Jumping Rivers (courses & blog): [jumpingrivers.com](https://www.jumpingrivers.com/)
 * Vetiver docs: [vetiver.posit.co](https://vetiver.posit.co/)
-* MLOps platforms compared: [https://valohai.com/mlops-platforms-compared/](valohai.com/mlops-platforms-compared/)
+* MLOps platforms compared: [valohai.com/mlops-platforms-compared/](https://valohai.com/mlops-platforms-compared/)
 :::
 :::{.column width="55%"}
 <center>
